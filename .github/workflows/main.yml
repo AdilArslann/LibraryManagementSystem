@@ -71,7 +71,7 @@ jobs:
           DB_USER: turing
           DB_PASSWORD: turing
           DB_NAME: testdb
-          GOOGLE_BOOKS_API_KEY: ${{ secrets.GOOGLE_BOOKS_API_KEY }}
+          GOOGLE_BOOKS_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           # port to start the server on
           PORT: 3000
 
@@ -88,7 +88,7 @@ jobs:
           DB_USER: turing
           DB_PASSWORD: turing
           DB_NAME: testdb
-          GOOGLE_BOOKS_API_KEY: ${{ secrets.GOOGLE_BOOKS_API_KEY }}
+          GOOGLE_BOOKS_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           # port to start the server on
           PORT: 3000
       # Build the front end for E2E tests. We are building it
