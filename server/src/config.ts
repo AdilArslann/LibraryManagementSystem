@@ -45,9 +45,7 @@ const schema = z
       synchronize: z.preprocess(coerceBoolean, z.boolean().default(isDevTest)),
     }),
 
-    booksApi: z.object({
-      apiKey: z.string(),
-    }),
+    booksApiKey: z.string(),
   })
   .readonly()
 
@@ -73,9 +71,7 @@ const config = schema.parse({
     synchronize: env.DB_SYNC,
   },
 
-  booksApi: {
-    apiKey: env.GOOGLE_BOOKS_API_KEY,
-  },
+  booksApiKey: env.GOOGLE_BOOKS_API_KEY,
 })
 
 export default config
