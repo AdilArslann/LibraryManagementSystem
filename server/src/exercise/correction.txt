@@ -1,0 +1,10 @@
+Notes:
+- Make sure to add .env.example in the client. (COMPLETE)
+- Ensure your tests pass on a clean setup and you can measure test coverage. (COMPLETE)
+- Prefer timestamps over dates most of the time. (COMPLETE)
+- Do not refer to env variables anymore once you have a file responsible for loading and validating them. For example, `server/src/config.ts` now manages configuration, so it should be used instead of `process.env` in `book/create/index.ts`. (COMPLETE)
+Bonus:
+- For non-exact search for book titles you could look into fuzzy search or semantic search.
+- pg_trgm, fuzzystrmatch
+- WHERE SIMILARITY(a, 'phrase') > 0.4;
+- external services (algolia, elastic search)
