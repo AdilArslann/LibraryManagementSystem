@@ -55,6 +55,7 @@ jobs:
       - name: Test server
         run: npm run test -w=server
         env:
+          isCi: true
           GOOGLE_BOOKS_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
 
       - name: Test client (unit)
