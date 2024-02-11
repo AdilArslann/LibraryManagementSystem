@@ -88,6 +88,10 @@ jobs:
       # We must start the server first. & at the end of the command
       # makes it run in the background. While it is starting up,
       # we will continue with other steps.
+
+      - name: Build server for running it
+        run: npm run build -w=server
+
       - name: Start server for E2E tests
         run: npm run start -w=server &
         env:
