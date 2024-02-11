@@ -138,7 +138,7 @@ jobs:
         env:
           # Similar to the .env file in your front end.
           VITE_API_ORIGIN: http://localhost:3000
-          VITE_API_PATH: /api/v1/trpc
+          VITE_API_PATH: /v1/trpc
 
       # Playwright generates a report of the E2E tests. We will
       # upload that report as an artifact so that we can download
