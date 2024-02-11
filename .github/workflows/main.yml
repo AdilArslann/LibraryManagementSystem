@@ -112,10 +112,6 @@ jobs:
       # end code.
       - name: Build front end for E2E tests
         run: npm run build -w=client
-        env:
-          # Similar to the .env file in your front end.
-          VITE_API_ORIGIN: http://localhost:3000
-          VITE_API_PATH: /api/v1/trpc
 
       # Just to make sure that our API server is up and running
       # before we start our E2E tests, we could use a health check.
@@ -139,6 +135,10 @@ jobs:
 
       - name: Test client E2E
         run: npm run test:e2e -w=client
+        env:
+          # Similar to the .env file in your front end.
+          VITE_API_ORIGIN: http://localhost:3000
+          VITE_API_PATH: /api/v1/trpc
 
       # Playwright generates a report of the E2E tests. We will
       # upload that report as an artifact so that we can download
