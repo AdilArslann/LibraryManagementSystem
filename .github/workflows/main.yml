@@ -55,7 +55,11 @@ jobs:
       - name: Test server
         run: npm run test -w=server
         env:
+          DB_USER: turing
+          DB_PASSWORD: turing
+          DB_NAME: testdb
           CI: true
+          TOKEN_KEY: supersecretkey
           GOOGLE_BOOKS_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
 
       - name: Test client (unit)
@@ -74,6 +78,8 @@ jobs:
           DB_USER: turing
           DB_PASSWORD: turing
           DB_NAME: testdb
+          TOKEN_KEY: supersecretkey
+          CI: true
           GOOGLE_BOOKS_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           # port to start the server on
           PORT: 3000
@@ -91,6 +97,8 @@ jobs:
           DB_USER: turing
           DB_PASSWORD: turing
           DB_NAME: testdb
+          CI: true
+          TOKEN_KEY: supersecretkey
           GOOGLE_BOOKS_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           # port to start the server on
           PORT: 3000

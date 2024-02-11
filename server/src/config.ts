@@ -52,6 +52,7 @@ const schema = z
 const config = schema.parse({
   env: env.NODE_ENV,
   port: env.PORT,
+  // https://stackoverflow.com/a/264037
   isCi: env.CI === 'true',
 
   auth: {
