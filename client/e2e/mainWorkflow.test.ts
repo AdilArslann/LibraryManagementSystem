@@ -9,7 +9,7 @@ const adminEmail: string = 'admin@gmail.com'
 
 test.describe('Admin happy path for creating a school and a librarian', () => {
   test('log in as admin', async ({ page }) => {
-    await page.goto('http://localhost:4173/')
+    await page.goto('http://localhost:5173/')
     const dashboardLink = page.getByRole('link', { name: 'Dashboard' })
     await expect(dashboardLink).toBeHidden()
 
