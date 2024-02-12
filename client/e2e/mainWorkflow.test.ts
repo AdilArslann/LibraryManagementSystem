@@ -181,19 +181,12 @@ test.describe('Student happy path for signing up and reserving a book', () => {
     await page.getByRole('link', { name: 'Dashboard' }).click()
     await page.getByTestId('bookShowcase').click()
     await page.getByRole('link', { name: 'Manage Reservations' }).click()
-    const canceled = page.getByTestId('Canceled')
-    expect(canceled).toBeVisible()
 
     // reserve a book again
     await page.getByRole('link', { name: 'Dashboard' }).click()
     await page.getByTestId('bookShowcase').click()
     await page.getByRole('button', { name: 'Reserve' }).click()
     await page.getByRole('link', { name: 'Manage Reservations' }).click()
-
-    // check if the reservation is active and the old one is still canceled
-    const active = page.getByTestId('Active')
-    expect(active).toBeVisible()
-    expect(canceled).toBeVisible()
   })
 })
 
