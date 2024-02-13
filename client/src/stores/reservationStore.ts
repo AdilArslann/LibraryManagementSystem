@@ -15,7 +15,6 @@ export const useReservationStore = defineStore('reservation', () => {
     const reservation = reservations.value.find((res) => res.id === reservationId)
     if (reservation) {
       reservation.status = 'Canceled' as Status.CANCELLED
-      console.log(reservation)
     }
   }
 

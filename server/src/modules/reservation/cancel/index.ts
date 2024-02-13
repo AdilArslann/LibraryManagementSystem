@@ -14,6 +14,7 @@ export default authenticatedProcedure
       where: {
         id: input.id,
         userId: authUser.id,
+        status: Status.ACTIVE,
       },
     })
 
