@@ -1,24 +1,24 @@
 <script lang="ts" setup>
-import { trpc } from '@/trpc'
-import { onBeforeMount, ref } from 'vue'
+import { onBeforeMount } from 'vue'
 import { FwbAlert } from 'flowbite-vue'
-import type { ReservationShowcase } from '@mono/server/src/shared/entities'
 import Reservation from '@/components/Reservation.vue'
+import { useReservationStore } from '@/stores/reservationStore'
 
 
-const reservations = ref<ReservationShowcase[]>([])
+const reservationsStore = useReservationStore()
 
 
 
 onBeforeMount(async () => {
-  reservations.value = await trpc.reservation.find.query()
+  reservationsStore.setReservations()
 })
 </script>
 
 <template>
   <div class="ReservationView">
-    <div v-if="reservations.length" class="reservationList" data-testid="reservationList">
-      <Reservation v-for="reservation in reservations" :key="reservation.id" :reservation="reservation" />
+    <div v-if="reservationsStore.reservations.length" class="reservationList" data-testid="reservationList">
+      <Reservation v-for="reservation in reservationsStore.reservations" :key="reservation.id"
+        :reservationId="reservation.id" />
     </div>
     <FwbAlert v-else data-testid="reservationListEmpty">There are no reservations</FwbAlert>
   </div>

@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import type { ReservationShowcase } from '@mono/server/src/shared/entities'
-import { trpc } from '@/trpc'
 import { FwbButton } from 'flowbite-vue'
 import { authUserRole, authUserId } from '@/stores/user';
+import { useReservationStore } from '@/stores/reservationStore';
 
 
 const userId = authUserId.value
 const userRole = authUserRole.value
+const reservationsStore = useReservationStore()
 
-defineProps<{
-  reservation: ReservationShowcase
+const props = defineProps<{
+  reservationId: number
 }>()
 
-
+const reservation = reservationsStore.getOne(props.reservationId)
 const checkIfStatusActive = (status: string) => {
   return status === 'Active'
 }
@@ -24,14 +24,6 @@ const checkIfSamePerson = (reservationUserId: number) => {
 
   return userId === reservationUserId
 
-}
-
-const cancelReservation = async (id: number) => {
-  await trpc.reservation.cancel.mutate({ id: id })
-}
-
-const completeReservation = async (id: number) => {
-  await trpc.loan.create.mutate({ reservationId: id })
 }
 
 const formatDate = (date: Date | string) => {
@@ -64,17 +56,16 @@ const formatDate = (date: Date | string) => {
     </div>
     <div class="actions">
       <div class="whenActive" v-if="checkIfStatusActive(reservation.status)">
-        <FwbButton v-if="checkIfSamePerson(reservation.user.id)" @click="cancelReservation(reservation.id)"
-          data-testid="cancelReservation">Cancel
+        <FwbButton v-if="checkIfSamePerson(reservation.user.id)"
+          @click="reservationsStore.cancelReservation(reservation.id)" data-testid="cancelReservation">Cancel
           Reservation
         </FwbButton>
-        <FwbButton v-if="userRole === 'librarian'" @click="completeReservation(reservation.id)"
+        <FwbButton v-if="userRole === 'librarian'" @click="reservationsStore.completeReservation(reservation.id)"
           data-testid="completeReservation">Complete Reservation
         </FwbButton>
       </div>
       <div class="whenExpired" v-if="checkIfStatusExpired(reservation.status)">
-        <FwbButton v-if="userRole === 'librarian'" @click="cancelReservation(reservation.id)"
-          data-testid="renewReservation">
+        <FwbButton v-if="userRole === 'librarian'" data-testid="renewReservation">
           Renew Reservation
         </FwbButton>
       </div>

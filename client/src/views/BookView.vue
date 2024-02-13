@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import type { BookBare } from '@mono/server/src/shared/entities';
 import { useRoute } from 'vue-router'
-import { trpc } from '@/trpc'
 import { FwbButton, FwbHeading } from 'flowbite-vue'
 import { onBeforeMount, ref } from 'vue'
+import { useBookStore } from '@/stores/bookStore';
 
 const isLoading = ref(true)
 const route = useRoute()
-const book = ref<BookBare>()
+const bookStore = useBookStore()
 const bookId = Number(route.params.id)
 
 onBeforeMount(async () => {
-  book.value = await trpc.book.getOne.query(bookId)
+  bookStore.setBook(bookId)
   isLoading.value = false
 })
 
@@ -19,8 +18,8 @@ const author = (authors: string[]) => {
   return authors.map(author => author).join(', ')
 }
 
-const reserveBook = async () => {
-  await trpc.reservation.create.mutate({ bookId })
+const reserveBook = () => {
+  bookStore.reserveBook()
 }
 </script>
 
@@ -30,34 +29,34 @@ const reserveBook = async () => {
     <p>If the issue presist please contant support</p>
   </div>
   <div v-else>
-    <div class="BookView" v-if="book">
+    <div class="BookView" v-if="bookStore.book">
       <div class="book">
-        <div class="thumbnail" :style="`--cover-image: url(${book.coverImageLargeUrl})`">
-          <img :src="book.coverImageLargeUrl" alt="book image" />
+        <div class="thumbnail" :style="`--cover-image: url(${bookStore.book.coverImageLargeUrl})`">
+          <img :src="bookStore.book.coverImageLargeUrl" alt="book image" />
         </div>
         <div class="details">
           <h5 class="title">
-            {{ book.title }}
+            {{ bookStore.book.title }}
           </h5>
           <p class="authors">
-            {{ author(book.authors) }}
+            {{ author(bookStore.book.authors) }}
           </p>
           <div class="about">
             <p>
               <strong>About this book:<br></strong>
-              {{ book.description }}<br>
+              {{ bookStore.book.description }}<br>
             </p>
             <div class="moreAbout">
-              <p><strong>PublicationYear:</strong> {{ book.publicationYear }}</p>
+              <p><strong>PublicationYear:</strong> {{ bookStore.book.publicationYear }}</p>
               <p></p>
-              <p><strong>Publisher:</strong> {{ book.publisher }}</p>
+              <p><strong>Publisher:</strong> {{ bookStore.book.publisher }}</p>
               <p></p>
-              <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+              <p><strong>ISBN:</strong> {{ bookStore.book.isbn }}</p>
               <p></p>
             </div>
           </div>
-          <div class="reserve" v-if="book.availableQuantity > 0" data-testid="reserveAvailableBooks">
-            <p>Available books: {{ book.availableQuantity }}</p>
+          <div class="reserve" v-if="bookStore.book.availableQuantity > 0" data-testid="reserveAvailableBooks">
+            <p>Available books: {{ bookStore.book.availableQuantity }}</p>
             <FwbButton @click="reserveBook">Reserve</FwbButton>
           </div>
         </div>
