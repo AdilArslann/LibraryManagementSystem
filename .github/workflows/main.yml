@@ -160,7 +160,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
     env:
       API_ORIGIN: ${{ vars.API_ORIGIN }}
-      API_PATH: /api/v1/trpc
+      API_PATH: /v1/trpc
       CLIENT_IMAGE_TAG: client-${{ github.sha }}
       SERVER_IMAGE_TAG: server-${{ github.sha }}
     steps:
@@ -257,7 +257,7 @@ jobs:
             "containerPort": 80,
             "healthCheck": {
               "intervalSeconds": 10,
-              "path": "/api/health"
+              "path": "/health"
             }
           }' > public-endpoint.json
 
