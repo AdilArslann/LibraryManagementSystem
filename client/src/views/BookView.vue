@@ -41,23 +41,37 @@ const reserveBook = () => {
           <p class="authors">
             {{ author(bookStore.book.authors) }}
           </p>
+          <div class="reserve" v-if="bookStore.book.availableQuantity > 0" data-testid="reserveAvailableBooks">
+            <FwbButton class="reserveButton" @click="reserveBook" pill size="md">
+              <template #prefix>
+                <img src="../assets/reserve.svg" alt="" class="icons">
+              </template>
+              Reserve
+            </FwbButton>
+          </div>
           <div class="about">
             <p>
               <strong>About this book:<br></strong>
               {{ bookStore.book.description }}<br>
             </p>
             <div class="moreAbout">
-              <p><strong>PublicationYear:</strong> {{ bookStore.book.publicationYear }}</p>
-              <p></p>
-              <p><strong>Publisher:</strong> {{ bookStore.book.publisher }}</p>
-              <p></p>
-              <p><strong>ISBN:</strong> {{ bookStore.book.isbn }}</p>
-              <p></p>
+              <div class="flex-row">
+                <img src="../assets/published.svg" alt="" class="icons">
+                <p>Published on <strong>{{ bookStore.book.publicationYear }}</strong> </p>
+              </div>
+              <div class="flex-row">
+                <img src="../assets/publisher.svg" alt="" class="icons">
+                <p>Published by <strong>{{ bookStore.book.publisher }}</strong></p>
+              </div>
+              <div class="flex-row">
+                <img src="../assets/isbn.svg" alt="" class="icons">
+                <p>ISBN: <strong>{{ bookStore.book.isbn }}</strong></p>
+              </div>
+              <div class="flex-row">
+                <img src="../assets/availableqty.svg" alt="" class="icons">
+                <p>Available Quantity: <strong>{{ bookStore.book.availableQuantity }}</strong></p>
+              </div>
             </div>
-          </div>
-          <div class="reserve" v-if="bookStore.book.availableQuantity > 0" data-testid="reserveAvailableBooks">
-            <p>Available books: {{ bookStore.book.availableQuantity }}</p>
-            <FwbButton @click="reserveBook">Reserve</FwbButton>
           </div>
         </div>
       </div>
@@ -71,6 +85,27 @@ const reserveBook = () => {
 
 
 <style scoped>
+.flex-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.icons {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.reserve {
+  padding: 1rem 0;
+  width: 100%;
+}
+
+.reserveButton {
+  width: 90%;
+  justify-content: center;
+}
+
 .book {
   display: flex;
   flex-direction: column;
@@ -127,15 +162,18 @@ const reserveBook = () => {
 .moreAbout {
   display: flex;
   flex-direction: column;
-  border: 1px solid #ccc;
-  padding: 0.5rem;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  margin: 1.5rem 0;
+  padding: 0.6rem;
+  gap: 0.4rem;
 }
 
 .about {
   text-align: left;
   padding: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
   margin-top: 10px;
 }
 </style>

@@ -45,11 +45,3 @@ const navigation = computed(() => {
     </div>
   </main>
 </template>
-
-
-<style scoped>
-.active {
-  font-weight: bold;
-  color: red;
-}
-</style>
