@@ -56,8 +56,6 @@ async function submitSignup() {
 }
 
 
-
-
 const selectSchool = (school: SchoolSignUp) => {
   userForm.value.schoolId = school.id
   searchQuery.value = school.name
