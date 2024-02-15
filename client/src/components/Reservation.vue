@@ -31,7 +31,6 @@ const formatDate = (date: Date | string) => {
   return new Date(date).toUTCString()
 }
 
-
 </script>
 
 
