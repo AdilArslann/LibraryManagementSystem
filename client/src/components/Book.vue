@@ -75,7 +75,6 @@ const author = (authors: string[]) => {
   font-size: 0.5rem;
 }
 
-
 @media (width >=768px) {
   .book {
     width: 11rem;
