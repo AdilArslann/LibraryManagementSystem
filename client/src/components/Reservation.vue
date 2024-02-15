@@ -30,7 +30,6 @@ const formatDate = (date: Date | string) => {
   // https://stackoverflow.com/questions/47349417/javascript-date-now-to-readable-format
   return new Date(date).toUTCString()
 }
-
 </script>
 
 
