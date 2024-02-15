@@ -55,13 +55,11 @@ async function submitSignup() {
   }
 }
 
-
 const selectSchool = (school: SchoolSignUp) => {
   userForm.value.schoolId = school.id
   searchQuery.value = school.name
   isDropdownOpen.value = false
 }
-
 
 const filteredSchools = computed(() => {
   return schools.value.filter(school =>
