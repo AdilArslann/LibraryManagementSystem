@@ -1,9 +1,10 @@
 import { UserRoles } from '@server/entities/user'
+import type { DataSourceOptions } from 'typeorm'
 import { createDatabase } from '../index'
 import config from '../../config'
 import { User, School } from '../../entities'
 
-const database = createDatabase(config.database)
+const database = createDatabase(config.database as DataSourceOptions)
 
 database.initialize().then(async () => {
   await seedDatabase()

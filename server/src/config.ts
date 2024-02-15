@@ -32,7 +32,7 @@ const schema = z
 
     database: z.object({
       type: z
-        .enum(['postgres', 'mysql', 'mariadb', 'better-sqlite3', 'pg-mem'])
+        .enum(['postgres', 'mysql', 'mariadb', 'pg-mem'])
         .default('postgres'),
       host: z.string().default('localhost'),
       port: z.coerce.number().default(5432),
@@ -70,8 +70,8 @@ const config = schema.parse({
     username: env.DB_USER,
     password: env.DB_PASSWORD,
     logging: env.DB_LOGGING,
-    synchronize: env.DB_SYNC,
     ssl: env.DB_SSL,
+    synchronize: env.DB_SYNC,
   },
 
   booksApiKey: env.GOOGLE_BOOKS_API_KEY,
