@@ -69,7 +69,6 @@ const formatDate = (date: Date | string) => {
         </FwbButton>
       </div>
     </div>
-
   </div>
 </template>
 
