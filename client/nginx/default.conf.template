@@ -16,7 +16,7 @@ server {
   server_tokens off;
 
   # All /api requests are forwarded to the Node.js server
-  location /api {
+  location /v1/trpc {
     proxy_pass $API_PROXY_PASS;
 
     # Allow WebSockets if your API uses them.
