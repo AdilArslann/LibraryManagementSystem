@@ -97,6 +97,7 @@ export const bookShowcaseSchema = bookSchema.pick({
   title: true,
   authors: true,
   coverImageUrl: true,
+  publisher: true,
 })
 
 export type BookShowcase = z.infer<typeof bookShowcaseSchema>

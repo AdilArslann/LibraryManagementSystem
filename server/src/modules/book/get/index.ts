@@ -11,12 +11,15 @@ export default authenticatedProcedure
   )
   .query(async ({ input: { page }, ctx: { db, authUser } }) => {
     const books = (await db.getRepository(Book).find({
-      select: ['id', 'title', 'authors', 'coverImageUrl'],
+      select: ['id', 'title', 'authors', 'coverImageUrl', 'publisher'],
       where: {
         schoolId: authUser.schoolId,
       },
       skip: page * 12,
       take: 12,
+      order: {
+        title: 'ASC',
+      },
     })) as BookShowcase[]
 
     return books

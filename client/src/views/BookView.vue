@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { FwbButton, FwbHeading } from 'flowbite-vue'
+import { FwbButton, FwbHeading, FwbSpinner } from 'flowbite-vue'
 import { onBeforeMount, ref } from 'vue'
 import { useBookStore } from '@/stores/bookStore';
 
@@ -24,9 +24,10 @@ const reserveBook = () => {
 </script>
 
 <template>
-  <div v-if="isLoading">
-    <FwbHeading>Loading...</FwbHeading>
-    <p>If the issue presist please contant support</p>
+  <div v-if="isLoading" class="loading">
+    <FwbSpinner size="12" />
+    <p><strong>Loading...</strong></p>
+    <p>If the issue presists please contant support</p>
   </div>
   <div v-else>
     <div class="BookView" v-if="bookStore.book">
@@ -91,11 +92,6 @@ const reserveBook = () => {
   gap: 0.5rem;
 }
 
-.icons {
-  width: 1.2rem;
-  height: 1.2rem;
-}
-
 .reserve {
   padding: 1rem 0;
   width: 100%;
@@ -106,7 +102,8 @@ const reserveBook = () => {
   justify-content: center;
 }
 
-.book {
+.book,
+.loading {
   display: flex;
   flex-direction: column;
   justify-content: space-between;

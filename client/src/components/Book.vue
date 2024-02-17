@@ -13,84 +13,75 @@ const author = (authors: string[]) => {
 <template>
   <RouterLink :to="{ name: 'Book', params: { id: book.id } }" class="book" data-testid="bookShowcase">
     <div class="thumbnail">
-      <img :src="book.coverImageUrl" alt="book image" />
+      <img :src="book.coverImageUrl" alt="book image" class="smallThumbnail" />
     </div>
     <div class="details">
-      <h5 class="title">
-        {{ book.title }}
-      </h5>
-      <p class="authors">
-        {{ author(book.authors) }}
-      </p>
+      <p class="title">{{ book.title }}</p>
+      <div class="authors">
+        <img src="../assets/author.svg" alt="author icon" class="icon" />
+        <p>
+          {{ author(book.authors) }}
+        </p>
+      </div>
+      <div class="publisher">
+        <img src="../assets/publisher.svg" alt="publisher icon" class="icon" />
+        <p>{{ book.publisher }}</p>
+      </div>
     </div>
   </RouterLink>
 </template>
 
 <style scoped>
+.icon {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
 .book {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #ccc;
-  margin: 0.3rem;
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-  transition: all 0.2s ease-in-out;
-  cursor: pointer;
-  width: 8rem;
-  height: 10rem;
-  text-align: center
-}
-
-.book:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-.thumbnail {
+  border-radius: 5px;
+  overflow: hidden;
   width: 100%;
-  height: 50%;
-  margin-bottom: 0.3rem;
-  display: flex;
-  justify-content: center;
-  align-items: bottom;
 }
 
 .details {
-  width: 100%;
-  height: 50%;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  width: 80%;
+  gap: 0.1rem;
+}
+
+.thumbnail {
+  width: 20%;
+  display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .title {
-  font-size: 0.6rem;
+  font-size: .8rem;
   font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.authors {
-  font-size: 0.5rem;
+.authors,
+.publisher {
+  display: flex;
+  gap: .5rem;
+  font-size: .8rem;
+  font-weight: bold;
+  color: #666;
+  align-items: center;
+  margin-bottom: 0.2rem;
 }
 
-@media (width >=768px) {
-  .book {
-    width: 11rem;
-    height: 13rem;
-  }
-
-  .title {
-    font-size: 0.8rem;
-  }
-
-  .authors {
-    font-size: 0.8rem;
-  }
-
-  .thumbnail {
-    margin-bottom: 0.5rem;
-  }
+.smallThumbnail {
+  width: 50px;
+  height: 70px;
+  border-radius: 10px;
 }
+
+@media (width >=768px) {}
 </style>

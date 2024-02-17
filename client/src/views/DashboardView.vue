@@ -29,7 +29,7 @@ onBeforeMount(async () => {
       <Book v-for="book in books" :key="book.id" :book="book" />
     </div>
     <FwbAlert v-else data-testid="bookListEmpty">There are no books</FwbAlert>
-    <fwb-pagination v-if="books.length" v-model="currentPage" :totalPages="totalPages"></fwb-pagination>
+    <fwb-pagination v-if="totalPages > 1" v-model="currentPage" :totalPages="totalPages"></fwb-pagination>
   </div>
 </template>
 
@@ -37,9 +37,10 @@ onBeforeMount(async () => {
 <style scoped>
 .bookList {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 1rem;
+  gap: .5rem;
+  overflow: hidden;
 }
 
 .DashboardView {

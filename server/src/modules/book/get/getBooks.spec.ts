@@ -38,5 +38,6 @@ it('should get books only books that are from their school', async () => {
   expect(books[0].id).toEqual(result.id)
   expect(books[0].title).toEqual(result.title)
   expect(books[0].authors).toEqual(result.authors)
+  expect(books[0].publisher).toEqual(result.publisher)
   expect(books[0].coverImageUrl).toEqual(result.coverImageUrl)
 })
