@@ -8,7 +8,7 @@ import PageForm from '@/components/PageForm.vue'
 
 const bookForm = ref({
   isbn: '',
-  quantity: 0,
+  quantity: 1,
 })
 
 
@@ -35,7 +35,8 @@ async function submitBook() {
       <label>Quantity</label>
       <input
         class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 p-2.5 text-sm"
-        v-model.number="bookForm.quantity" label="Quantity" type="number" required data-testid="bookQuantityInput" />
+        v-model.number="bookForm.quantity" label="Quantity" type="number" required data-testid="bookQuantityInput"
+        min="1" />
 
       <FwbAlert v-if="hasSucceeded" type="success" data-testid="successMessage">
         Book created successfully
