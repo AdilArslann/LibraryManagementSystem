@@ -42,6 +42,7 @@ const author = (authors: string[]) => {
   border-radius: 5px;
   overflow: hidden;
   width: 100%;
+  min-width: 355px;
 }
 
 .details {
