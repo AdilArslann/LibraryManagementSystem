@@ -72,3 +72,33 @@ export const loanSchema = validates<LoanBare>().with({
 export const loanInsertSchema = loanSchema.omit({ id: true })
 
 export type LoanInsert = z.infer<typeof loanInsertSchema>
+
+export type LoanShowcase = Omit<
+  LoanBare,
+  'bookId' | 'userId' | 'reservationId'
+> & {
+  book: {
+    id: number
+    title: string
+  }
+  user: {
+    id: number
+    name: string
+  }
+}
+
+export const loanShowcaseSchema = validates<LoanShowcase>().with({
+  id: z.number().int().positive(),
+  returnedDate: z.date(),
+  checkoutDate: z.date(),
+  dueDate: z.date(),
+  status: z.nativeEnum(LoanStatus),
+  book: z.object({
+    id: z.number().int().positive(),
+    title: z.string(),
+  }),
+  user: z.object({
+    id: z.number().int().positive(),
+    name: z.string(),
+  }),
+})

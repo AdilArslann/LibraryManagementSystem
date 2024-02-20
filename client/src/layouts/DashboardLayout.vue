@@ -8,13 +8,13 @@ import { computed } from 'vue'
 
 const router = useRouter()
 const userRole = authUserRole.value
-const allLinks = [{ label: 'Dashboard', name: 'Dashboard' }, { label: 'Create Book', name: 'CreateBook' }, { label: 'Create School', name: 'CreateSchool' }, { label: 'Create Librarian', name: 'CreateLibrarian' }, { label: 'Manage Reservations', name: 'Reservations' }]
+const allLinks = [{ label: 'Dashboard', name: 'Dashboard' }, { label: 'Create Book', name: 'CreateBook' }, { label: 'Create School', name: 'CreateSchool' }, { label: 'Create Librarian', name: 'CreateLibrarian' }, { label: 'Manage Reservations', name: 'Reservations' }, { label: 'Manage Loans', name: 'Loans' }]
 
 const links = computed(() => {
   if (userRole === 'admin') {
     return allLinks
   } else if (userRole === 'librarian') {
-    return allLinks.filter(link => ['Dashboard', 'CreateBook', 'Reservations'].includes(link.name))
+    return allLinks.filter(link => ['Dashboard', 'CreateBook', 'Reservations', 'Loans'].includes(link.name))
   } else {
     return allLinks.filter(link => ['Dashboard', 'Reservations'].includes(link.name))
   }

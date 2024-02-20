@@ -40,6 +40,11 @@ const router = createRouter({
           name: 'CreateLibrarian',
           component: () => import('../views/SignupView.vue'),
         },
+        {
+          path: 'loans',
+          name: 'Loans',
+          component: () => import('../views/LoanView.vue'),
+        },
       ],
     },
     {
