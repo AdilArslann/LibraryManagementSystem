@@ -1,5 +1,5 @@
 import { Loan } from '@server/entities'
-import { LoanShowcase } from '@server/entities/loan'
+import type { LoanShowcase } from '@server/entities/loan'
 import { UserRoles } from '@server/entities/user'
 import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
 
