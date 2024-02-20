@@ -84,5 +84,14 @@ const author = (authors: string[]) => {
   border-radius: 10px;
 }
 
-@media (width >=768px) {}
+@media (width >=768px) {
+  .book {
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .thumbnail {
+    width: auto;
+  }
+}
 </style>
