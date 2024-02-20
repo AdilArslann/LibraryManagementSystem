@@ -27,12 +27,17 @@ export default authenticatedProcedure
       })
 
       if (title) {
+        query = query.andWhere('book.title ILIKE :title', {
+          title: `%${title}%`,
+        })
+        /*
         query = query.andWhere(
           'to_tsvector(book.title) @@ plainto_tsquery(:title)',
           {
             title,
           }
         )
+        */
       }
 
       if (publishers) {
