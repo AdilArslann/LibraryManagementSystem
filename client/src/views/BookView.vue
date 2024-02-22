@@ -2,7 +2,7 @@
 import { useRoute } from 'vue-router'
 import { FwbButton, FwbHeading, FwbSpinner } from 'flowbite-vue'
 import { onBeforeMount, ref } from 'vue'
-import { useBookStore } from '@/stores/bookStore';
+import { useBookStore } from '@/stores/bookStore'
 
 const isLoading = ref(true)
 const route = useRoute()
@@ -15,7 +15,7 @@ onBeforeMount(async () => {
 })
 
 const author = (authors: string[]) => {
-  return authors.map(author => author).join(', ')
+  return authors.map((author) => author).join(', ')
 }
 
 const reserveBook = () => {
@@ -42,35 +42,47 @@ const reserveBook = () => {
           <p class="authors">
             {{ author(bookStore.book.authors) }}
           </p>
-          <div class="reserve" v-if="bookStore.book.availableQuantity > 0" data-testid="reserveAvailableBooks">
+          <div
+            class="reserve"
+            v-if="bookStore.book.availableQuantity > 0"
+            data-testid="reserveAvailableBooks"
+          >
             <FwbButton class="reserveButton" @click="reserveBook" pill size="md">
               <template #prefix>
-                <img src="../assets/reserve.svg" alt="" class="icons">
+                <img src="../assets/reserve.svg" alt="" class="icons" />
               </template>
               Reserve
             </FwbButton>
           </div>
           <div class="about">
             <p>
-              <strong>About this book:<br></strong>
-              {{ bookStore.book.description }}<br>
+              <strong>About this book:<br /></strong>
+              {{ bookStore.book.description }}<br />
             </p>
             <div class="moreAbout">
               <div class="flex-row">
-                <img src="../assets/published.svg" alt="" class="icons">
-                <p>Published on <strong>{{ bookStore.book.publicationYear }}</strong> </p>
+                <img src="../assets/published.svg" alt="" class="icons" />
+                <p>
+                  Published on <strong>{{ bookStore.book.publicationYear }}</strong>
+                </p>
               </div>
               <div class="flex-row">
-                <img src="../assets/publisher.svg" alt="" class="icons">
-                <p>Published by <strong>{{ bookStore.book.publisher }}</strong></p>
+                <img src="../assets/publisher.svg" alt="" class="icons" />
+                <p>
+                  Published by <strong>{{ bookStore.book.publisher }}</strong>
+                </p>
               </div>
               <div class="flex-row">
-                <img src="../assets/isbn.svg" alt="" class="icons">
-                <p>ISBN: <strong>{{ bookStore.book.isbn }}</strong></p>
+                <img src="../assets/isbn.svg" alt="" class="icons" />
+                <p>
+                  ISBN: <strong>{{ bookStore.book.isbn }}</strong>
+                </p>
               </div>
               <div class="flex-row">
-                <img src="../assets/availableqty.svg" alt="" class="icons">
-                <p>Available Quantity: <strong>{{ bookStore.book.availableQuantity }}</strong></p>
+                <img src="../assets/availableqty.svg" alt="" class="icons" />
+                <p>
+                  Available Quantity: <strong>{{ bookStore.book.availableQuantity }}</strong>
+                </p>
               </div>
             </div>
           </div>
@@ -82,8 +94,6 @@ const reserveBook = () => {
     </div>
   </div>
 </template>
-
-
 
 <style scoped>
 .flex-row {

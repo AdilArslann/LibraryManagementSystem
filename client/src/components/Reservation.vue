@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { FwbButton } from 'flowbite-vue'
-import { authUserRole, authUserId } from '@/stores/user';
-import { useReservationStore } from '@/stores/reservationStore';
-
+import { authUserRole, authUserId } from '@/stores/user'
+import { useReservationStore } from '@/stores/reservationStore'
 
 const userId = authUserId.value
 const userRole = authUserRole.value
@@ -21,9 +20,7 @@ const checkIfStatusExpired = (status: string) => {
   return status === 'Expired'
 }
 const checkIfSamePerson = (reservationUserId: number) => {
-
   return userId === reservationUserId
-
 }
 
 const formatDate = (date: Date | string) => {
@@ -31,7 +28,6 @@ const formatDate = (date: Date | string) => {
   return new Date(date).toUTCString()
 }
 </script>
-
 
 <template>
   <div class="reservation" data-testid="reservationShowcase">
@@ -43,9 +39,9 @@ const formatDate = (date: Date | string) => {
         <strong>Reserved For:</strong> {{ reservation.user.name }}
       </p>
       <p class="dates">
-        <strong>Reserved On:</strong><br>
-        {{ formatDate(reservation.reservationDate) }}<br>
-        <strong>Expire Date:</strong><br>
+        <strong>Reserved On:</strong><br />
+        {{ formatDate(reservation.reservationDate) }}<br />
+        <strong>Expire Date:</strong><br />
         {{ formatDate(reservation.expireDate) }}
       </p>
       <p :class="['status', reservation.status]" :data-testid="reservation.status">
@@ -55,8 +51,7 @@ const formatDate = (date: Date | string) => {
     <div class="actions">
       <div class="whenActive" v-if="checkIfStatusActive(reservation.status)">
         <FwbButton v-if="checkIfSamePerson(reservation.user.id)"
-          @click="reservationsStore.cancelReservation(reservation.id)" data-testid="cancelReservation">Cancel
-          Reservation
+          @click="reservationsStore.cancelReservation(reservation.id)" data-testid="cancelReservation">Cancel Reservation
         </FwbButton>
         <FwbButton v-if="userRole === 'librarian'" @click="reservationsStore.completeReservation(reservation.id)"
           data-testid="completeReservation">Complete Reservation
@@ -70,7 +65,6 @@ const formatDate = (date: Date | string) => {
     </div>
   </div>
 </template>
-
 
 <style scoped>
 .reservation {
@@ -124,7 +118,6 @@ const formatDate = (date: Date | string) => {
     text-align: center;
   }
 
-
   .details {
     align-items: flex-start;
     text-align: start;
@@ -137,7 +130,6 @@ const formatDate = (date: Date | string) => {
     width: 30%;
   }
 }
-
 
 .status {
   display: flex;
@@ -157,9 +149,7 @@ const formatDate = (date: Date | string) => {
   margin-right: 10%;
 }
 
-.Completed::before {
-  background-color: blue;
-}
+
 
 .Active::before {
   background-color: green;

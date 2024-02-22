@@ -26,18 +26,27 @@ async function submitSchool() {
     errorMessage.value = error instanceof Error ? error.message : DEFAULT_SERVER_ERROR
   }
 }
-
-
 </script>
-
 
 <template>
   <div class="CreateSchool">
     <PageForm heading="Create school" form-label="CreateSchool" @submit="submitSchool">
       <FwbInput v-model="schoolForm.name" label="Name" placeholder="Name" type="text" required />
-      <FwbInput v-model="schoolForm.address" label="Address" placeholder="Address" type="text" required />
+      <FwbInput
+        v-model="schoolForm.address"
+        label="Address"
+        placeholder="Address"
+        type="text"
+        required
+      />
       <FwbInput v-model="schoolForm.phone" label="Phone" placeholder="Phone" type="text" required />
-      <FwbInput v-model="schoolForm.email" label="Email" placeholder="Email" type="email" required />
+      <FwbInput
+        v-model="schoolForm.email"
+        label="Email"
+        placeholder="Email"
+        type="email"
+        required
+      />
 
       <FwbAlert v-if="hasSucceeded" type="success" data-testid="successMessage">
         <p>School created successfully</p>

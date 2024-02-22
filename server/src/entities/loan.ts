@@ -13,9 +13,9 @@ import { Book } from './book'
 import { Reservation } from './reservation'
 
 export enum LoanStatus {
-  CHECKED_OUT = 'CHECKED_OUT',
-  RETURNED = 'RETURNED',
-  OVERDUE = 'OVERDUE',
+  CHECKED_OUT = 'Checked_Out',
+  RETURNED = 'Returned',
+  OVERDUE = 'Overdue',
 }
 
 @Entity()

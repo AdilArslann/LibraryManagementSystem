@@ -6,12 +6,16 @@ defineProps<{
 }>()
 
 const author = (authors: string[]) => {
-  return authors.map(author => author).join(', ')
+  return authors.map((author) => author).join(', ')
 }
 </script>
 
 <template>
-  <RouterLink :to="{ name: 'Book', params: { id: book.id } }" class="book" data-testid="bookShowcase">
+  <RouterLink
+    :to="{ name: 'Book', params: { id: book.id } }"
+    class="book"
+    data-testid="bookShowcase"
+  >
     <div class="thumbnail">
       <img :src="book.coverImageUrl" alt="book image" class="smallThumbnail" />
     </div>
@@ -60,7 +64,7 @@ const author = (authors: string[]) => {
 }
 
 .title {
-  font-size: .8rem;
+  font-size: 0.8rem;
   font-weight: bold;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -70,8 +74,8 @@ const author = (authors: string[]) => {
 .authors,
 .publisher {
   display: flex;
-  gap: .5rem;
-  font-size: .8rem;
+  gap: 0.5rem;
+  font-size: 0.8rem;
   font-weight: bold;
   color: #666;
   align-items: center;

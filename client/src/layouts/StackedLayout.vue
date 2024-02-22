@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useNavigationStore } from '@/stores/navigationStore';
+import { useNavigationStore } from '@/stores/navigationStore'
 import { FwbNavbar, FwbNavbarCollapse, FwbNavbarLink } from 'flowbite-vue'
-
 
 const { links } = defineProps<{
   links: {
@@ -13,22 +12,18 @@ const { links } = defineProps<{
 
 const navigationStore = useNavigationStore()
 
-
-
 const navigation = computed(() => {
   return links.map((item) => ({
     ...item,
     isActive: navigationStore.currentRouteName === item.name,
-  }));
-});
-
+  }))
+})
 </script>
 
 <template>
   <FwbNavbar>
     <template #default="{ isShowMenu }">
       <FwbNavbar-collapse :isShowMenu="isShowMenu">
-
         <!-- prettier-ignore -->
         <FwbNavbarLink v-for="link in navigation" :key="`${link.name}-${link.isActive}`" :is-active="link.isActive"
           :link="({ name: link.name } as any)" link-attr="to" component="RouterLink">

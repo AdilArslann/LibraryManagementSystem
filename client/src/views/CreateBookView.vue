@@ -11,7 +11,6 @@ const bookForm = ref({
   quantity: 1,
 })
 
-
 const hasSucceeded = ref(false)
 
 const errorMessage = ref('')
@@ -27,16 +26,20 @@ async function submitBook() {
 }
 </script>
 
-
 <template>
   <div class="CreateBook">
     <PageForm heading="Create Book" form-label="CreateBook" @submit="submitBook">
       <FwbInput v-model="bookForm.isbn" label="ISBN" placeholder="ISBN" type="text" required />
       <label>Quantity</label>
       <input
-        class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 p-2.5 text-sm"
-        v-model.number="bookForm.quantity" label="Quantity" type="number" required data-testid="bookQuantityInput"
-        min="1" />
+        class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+        v-model.number="bookForm.quantity"
+        label="Quantity"
+        type="number"
+        required
+        data-testid="bookQuantityInput"
+        min="1"
+      />
 
       <FwbAlert v-if="hasSucceeded" type="success" data-testid="successMessage">
         Book created successfully

@@ -1,14 +1,22 @@
 <script setup lang="ts">
-import { trpc } from '@/trpc';
-import type { LoanShowcase } from '@mono/server/src/shared/entities';
 import { FwbButton } from 'flowbite-vue'
+import { useLoanStore } from '@/stores/loanStore';
 
-defineProps<{
-  loan: LoanShowcase
+const loansStore = useLoanStore()
+
+const props = defineProps<{
+  loanId: number
 }>()
 
-const returned = async (id: number) => {
-  await trpc.loan.returned.mutate({ id })
+const loan = loansStore.getOne(props.loanId)
+
+const checkIfStatusReturned = (status: string) => {
+  return status === 'Returned'
+}
+
+const formatDate = (date: Date | string) => {
+  // https://stackoverflow.com/questions/47349417/javascript-date-now-to-readable-format
+  return new Date(date).toUTCString()
 }
 </script>
 
@@ -19,23 +27,26 @@ const returned = async (id: number) => {
         {{ loan.book.title }}
       </h1>
       <p class="user" data-testid="loanOwnerName">
-        <strong>Loaned By:</strong> {{ loan.user.name }}
+        <strong>Loaned to:</strong> {{ loan.user.name }}
       </p>
       <p class="dates">
-        <strong>Loaned On:</strong><br>
-        {{ loan.checkoutDate }}<br>
-        <strong>Due Date:</strong><br>
-        {{ loan.dueDate }}
+        <strong>Loaned On:</strong><br />
+        {{ formatDate(loan.checkoutDate) }}<br />
+        <strong>Due Date:</strong><br />
+        {{ formatDate(loan.dueDate) }}
       </p>
       <p :class="['status', loan.status]" :data-testid="loan.status">
         {{ loan.status }}
       </p>
     </div>
-    <FwbButton @click="returned(loan.id)">Mark as Returned</FwbButton>
+    <div class="actions">
+      <FwbButton v-if="!checkIfStatusReturned(loan.status)" @click="loansStore.returnLoan(loan.id)">Mark as Returned
+      </FwbButton>
+    </div>
   </div>
 </template>
 
-<style>
+<style scoped>
 .loan {
   display: flex;
   flex-direction: column;
@@ -51,8 +62,19 @@ const returned = async (id: number) => {
 }
 
 .user {
-  margin-top: 0.5rem;
-  font-size: 0.7rem;
+  text-decoration: underline;
+  font-weight: bold;
+  color: #000;
+}
+
+.details {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 0.5rem;
 }
 
 .dates {
@@ -60,22 +82,77 @@ const returned = async (id: number) => {
   font-size: 0.7rem;
 }
 
-.status {
-  margin-top: 0.5rem;
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.7rem;
+.actions {
+  display: flex;
+  flex-direction: row;
+}
+
+.title {
+  font-weight: 800;
+  font-size: 1.2rem;
+  line-height: 1;
 }
 
 @media (width >=768px) {
   .loan {
     flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    text-align: center;
   }
 
   .details {
-    text-align: center;
+    align-items: flex-start;
+    text-align: start;
+    width: 70%;
   }
+
+  .actions {
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+  }
+}
+
+.status {
+  display: flex;
+  padding: 0.625rem 0.5rem;
+  border-radius: 0.25rem;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+  min-width: 8rem;
+}
+
+.status::before {
+  content: '';
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+  margin-right: 10%;
+}
+
+.Returned::before {
+  background-color: grey;
+}
+
+.Checked_Out::before {
+  background-color: green;
+}
+
+.Overdue::before {
+  background-color: #f44336;
+}
+
+.status.Checked_Out {
+  color: green;
+  background-color: lightgreen;
+}
+
+.status.Overdue {
+  background-color: #f44336;
+}
+
+.status.Returned {
+  color: grey;
+  background-color: lightgrey;
 }
 </style>

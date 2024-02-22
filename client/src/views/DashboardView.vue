@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { trpc } from '@/trpc'
 import { onBeforeMount, ref, watchEffect } from 'vue'
-import { FwbAlert, FwbPagination, FwbButton, FwbInput, FwbDropdown } from 'flowbite-vue'
+import { FwbAlert, FwbPagination, FwbButton, FwbInput } from 'flowbite-vue'
 import type { BookShowcase } from '@mono/server/src/shared/entities'
 import Book from '@/components/Book.vue'
 // If we want to get a type error at the place of assignment of
@@ -25,7 +25,6 @@ onBeforeMount(async () => {
 const search = async () => {
   books.value = await trpc.book.get.query({ title: query.value, page: 0 })
 }
-
 </script>
 
 <template>
@@ -37,7 +36,7 @@ const search = async () => {
       <div class="searchColumn">
         <fwb-input v-model="query" placeholder=" Enter Book Title" size="lg">
           <template #prefix>
-            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor"
+            <svg aria-hidden="true" class="h-5 w-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor"
               viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round"
                 stroke-width="2" />
@@ -54,7 +53,6 @@ const search = async () => {
   </div>
 </template>
 
-
 <style scoped>
 .dashboardMain {
   display: flex;
@@ -70,7 +68,7 @@ const search = async () => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: .5rem;
+  gap: 0.5rem;
   overflow: hidden;
 }
 
@@ -87,10 +85,8 @@ const search = async () => {
   justify-content: center;
 }
 
-
 @media (width >=768px) {
   .dashboardMain {
-    flex-direction: row;
     width: 100%;
   }
 
@@ -98,8 +94,8 @@ const search = async () => {
     flex-direction: column;
     width: 30%;
     height: 100%;
-    align-items: flex-start;
-    align-self: flex-start;
+    align-items: flex-end;
+    align-self: flex-end;
     justify-content: flex-start;
   }
 
