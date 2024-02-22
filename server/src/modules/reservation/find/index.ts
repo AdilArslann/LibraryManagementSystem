@@ -14,6 +14,10 @@ export default authenticatedProcedure.query(
           },
         },
         relations: ['book', 'user'],
+        order: {
+          status: 'ASC',
+          reservationDate: 'DESC',
+        },
       })
     } else {
       reservations = await db.getRepository(Reservation).find({
@@ -21,22 +25,13 @@ export default authenticatedProcedure.query(
           userId: authUser.id,
         },
         relations: ['book', 'user'],
+        order: {
+          status: 'ASC',
+          reservationDate: 'DESC',
+        },
       })
     }
 
-    return reservations.map((reservation) => ({
-      id: reservation.id,
-      reservationDate: reservation.reservationDate,
-      expireDate: reservation.expireDate,
-      status: reservation.status,
-      book: {
-        id: reservation.book.id,
-        title: reservation.book.title,
-      },
-      user: {
-        id: reservation.user.id,
-        name: reservation.user.name,
-      },
-    }))
+    return reservations
   }
 )
