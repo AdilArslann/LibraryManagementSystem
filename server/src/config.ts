@@ -47,6 +47,12 @@ const schema = z
     }),
 
     booksApiKey: z.string(),
+    sentryDSN: z.string().default(() => {
+      if (isDevTest) {
+        return ''
+      }
+      throw new Error('You must provide a Sentry DSN in production env!')
+    }),
   })
   .readonly()
 
@@ -75,6 +81,7 @@ const config = schema.parse({
   },
 
   booksApiKey: env.GOOGLE_BOOKS_API_KEY,
+  sentryDSN: env.SENTRY_DSN,
 })
 
 export default config

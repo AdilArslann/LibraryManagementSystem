@@ -5,12 +5,33 @@ import {
 } from '@trpc/server/adapters/express'
 import cors from 'cors'
 import { renderTrpcPanel } from 'trpc-panel'
+import * as Sentry from '@sentry/node'
+import { ProfilingIntegration } from '@sentry/profiling-node'
 import type { Database } from './database'
 import { appRouter } from './modules'
 import type { Context } from './trpc'
+import config from './config'
 
 export default function createApp(db: Database) {
   const app = express()
+
+  Sentry.init({
+    dsn: config.sentryDSN,
+    integrations: [
+      // enable HTTP calls tracing
+      new Sentry.Integrations.Http({ tracing: true }),
+      // enable Express.js middleware tracing
+      new Sentry.Integrations.Express({ app }),
+      new ProfilingIntegration(),
+    ],
+    // Performance Monitoring
+    tracesSampleRate: 1.0, //  Capture 100% of the transactions
+    // Set sampling rate for profiling - this is relative to tracesSampleRate
+    profilesSampleRate: 1.0,
+  })
+  app.use(Sentry.Handlers.requestHandler())
+  app.use(Sentry.Handlers.tracingHandler())
+  app.use(Sentry.Handlers.errorHandler())
 
   app.use(cors())
   app.use(express.json())

@@ -247,7 +247,8 @@ jobs:
                 "DB_USER": "${{ secrets.PROD_DB_USER }}",
                 "DB_PASSWORD": "${{ secrets.PROD_DB_PASSWORD }}",
                 "TOKEN_KEY": "${{ secrets.TOKEN_KEY }}",
-                "GOOGLE_BOOKS_API_KEY": "${{ secrets.GOOGLE_API_KEY }}"
+                "GOOGLE_BOOKS_API_KEY": "${{ secrets.GOOGLE_API_KEY }}",
+                "SENTRY_DSN": "${{ secrets.SENTRY_DSN }}"
               }
             }
           }' > containers.json

@@ -7,6 +7,7 @@ import type { Repository } from 'typeorm'
 import SuperJSON from 'superjson'
 import { ZodError } from 'zod'
 import { fromZodError } from 'zod-validation-error'
+import * as Sentry from '@sentry/node'
 
 type Entities = typeof entities
 
@@ -36,6 +37,8 @@ const t = initTRPC.context<Context>().create({
   transformer: SuperJSON,
   errorFormatter(opts) {
     const { shape, error } = opts
+
+    Sentry.captureException(error)
 
     if (error.cause instanceof ZodError) {
       const validationError = fromZodError(error.cause)
