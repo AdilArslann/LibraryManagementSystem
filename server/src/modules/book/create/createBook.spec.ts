@@ -66,4 +66,15 @@ describe('', async () => {
       })
     ).rejects.toThrow(/Book not found/i)
   })
+
+  it('Should give an trpc error if book already exists in the same school', async () => {
+    const fakedBook = fakeBook()
+
+    await expect(
+      create({
+        isbn: fakedBook.isbn,
+        quantity: 2,
+      })
+    ).rejects.toThrow(/Book already exists/i)
+  })
 })

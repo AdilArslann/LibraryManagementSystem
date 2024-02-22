@@ -1,9 +1,9 @@
 import { Loan, Book } from '@server/entities'
 import { loanSchema, LoanStatus } from '@server/entities/loan'
-import { authenticatedProcedure } from '@server/trpc/authenticatedProcedure'
+import { librarianAuthorizedProcedure } from '@server/trpc/authorizedProcedure'
 import { TRPCError } from '@trpc/server'
 
-export default authenticatedProcedure
+export default librarianAuthorizedProcedure
   .input(
     loanSchema.pick({
       id: true,

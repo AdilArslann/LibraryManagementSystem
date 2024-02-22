@@ -2,13 +2,13 @@ import { createTestDatabase } from '@tests/utils/database'
 import { authContext } from '@tests/utils/context'
 import { Loan, Reservation, Book, School, User } from '@server/entities'
 import { Status } from '@server/entities/reservation'
-import { LoanStatus } from '@server/entities/loan'
 import { UserRoles } from '@server/entities/user'
 import { fakeBook, fakeUser, fakeSchool } from '@server/entities/tests/fakes'
 import loanRouter from '..'
 
 const db = await createTestDatabase()
 const school = await db.getRepository(School).save(fakeSchool())
+const loanRepository = db.getRepository(Loan)
 const user = await db.getRepository(User).save({
   ...fakeUser(),
   role: UserRoles.LIBRARIAN,
@@ -19,6 +19,10 @@ const user2 = await db.getRepository(User).save({
   schoolId: school.id,
 })
 
+const user3 = await db.getRepository(User).save({
+  ...fakeUser(),
+  schoolId: school.id,
+})
 const book = await db.getRepository(Book).save({
   ...fakeBook(),
   title: 'test',
@@ -44,60 +48,57 @@ const reservation2 = await db.getRepository(Reservation).save({
   reservationDate: new Date(),
   expireDate: new Date(),
 })
-const loan = await db.getRepository(Loan).save({
+
+const loan = await loanRepository.save({
   dueDate: new Date(new Date().setMonth(new Date().getMonth() + 1)),
   userId: reservation.userId,
   bookId: reservation.bookId,
   reservationId: reservation.id,
 })
 
-const loan2 = await db.getRepository(Loan).save({
+const loan2 = await loanRepository.save({
   dueDate: new Date(new Date().setMonth(new Date().getMonth() + 1)),
   userId: reservation2.userId,
   bookId: reservation2.bookId,
   reservationId: reservation2.id,
 })
 
-const loanRepository = db.getRepository(Loan)
-const { returned } = loanRouter.createCaller(authContext({ db }, user))
-const { returned: returned2 } = loanRouter.createCaller(
-  authContext({ db }, user2)
-)
+const { get } = loanRouter.createCaller(authContext({ db }, user))
+const { get: get2 } = loanRouter.createCaller(authContext({ db }, user2))
+const { get: get3 } = loanRouter.createCaller(authContext({ db }, user3))
 
 afterAll(() => {
   db.destroy()
 })
 
-it('Should change the status and add the date of return', async () => {
-  const completedLoan = await returned({
-    id: loan.id,
-  })
+it('should get all loans from the librarian school', async () => {
+  const loans = await get()
 
-  expect(completedLoan.status).toEqual(LoanStatus.RETURNED)
-  expect(completedLoan).toHaveProperty('returnedDate')
-
-  const dbLoan = await loanRepository.findOneOrFail({
+  const loansFromSchool = loanRepository.find({
     where: {
-      id: loan.id,
+      user: {
+        schoolId: user.schoolId,
+      },
+    },
+    relations: ['book', 'user'],
+    order: {
+      status: 'ASC',
+      checkoutDate: 'DESC',
     },
   })
 
-  expect(dbLoan.status).toEqual(LoanStatus.RETURNED)
-  expect(dbLoan).toHaveProperty('returnedDate')
+  expect(loans.length).toBeGreaterThanOrEqual(2)
+  expect(loans).toMatchObject(loansFromSchool)
 })
 
-it('Should give an trpc error if no loan was found', async () => {
-  await expect(
-    returned({
-      id: 78412784171789,
-    })
-  ).rejects.toThrowError()
+it('should get all loans from the user', async () => {
+  const loans = await get2()
+
+  expect(loans.every((loann) => loann.user.name === user2.name)).toBeTruthy()
 })
 
-it('Should give authorization error if the user is not a librarian', async () => {
-  await expect(
-    returned2({
-      id: loan2.id,
-    })
-  ).rejects.toThrowError(/Access denied/i)
+it('User without loans should return an empty array', async () => {
+  const loans = await get3()
+
+  expect(loans.length).toEqual(0)
 })

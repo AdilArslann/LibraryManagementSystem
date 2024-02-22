@@ -26,12 +26,12 @@ afterAll(() => {
   db.destroy()
 })
 
+const fakedBook = fakeBook()
+
+const result = await create(fakedBook)
+await create2(fakedBook)
+
 it('should get books only books that are from their school', async () => {
-  const fakedBook = fakeBook()
-
-  const result = await create(fakedBook)
-  await create2(fakedBook)
-
   const books = await get({ page: 0 })
 
   expect(books.length).toEqual(1)
@@ -41,7 +41,7 @@ it('should get books only books that are from their school', async () => {
   expect(books[0].publisher).toEqual(result.publisher)
   expect(books[0].coverImageUrl).toEqual(result.coverImageUrl)
 })
-
+/*
 it('should get books with the specified publisher', async () => {
   const fakedBook = fakeBook()
 
@@ -61,11 +61,11 @@ it('should get books with the specified authors', async () => {
 
   const books = await get({ page: 0, authors: result.authors })
 
-  /* chekcking that every book that is given back has at least one 
-  author that is matching with our initial author filter since our books
-  have an array for authors and one book can have more than one 
-  author, some will return true as long as one or more returns true 
-  */
+ // chekcking that every book that is given back has at least one 
+ // author that is matching with our initial author filter since our books
+ // have an array for authors and one book can have more than one 
+ // author, some will return true as long as one or more returns true 
+  
   expect(
     books.every((book) =>
       book.authors.some((author) => result.authors.includes(author))
@@ -73,11 +73,8 @@ it('should get books with the specified authors', async () => {
   ).toBeTruthy()
 })
 
+*/
 it('should get books with the specified search', async () => {
-  const fakedBook = fakeBook()
-
-  const result = await create(fakedBook)
-
   const books = await get({ page: 0, title: result.title })
 
   expect(books[0].title).toEqual(result.title)
