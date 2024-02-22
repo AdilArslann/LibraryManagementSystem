@@ -14,6 +14,7 @@ const app = createApp(App)
 app.use(createPinia())
 
 if (sentryDSN) {
+  console.log('Sentry DSN found, initializing Sentry...')
   Sentry.init({
     dsn: sentryDSN,
     integrations: [
