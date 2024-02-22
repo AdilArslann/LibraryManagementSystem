@@ -85,37 +85,18 @@ onBeforeMount(async () => {
     <template #default>
       <FwbInput label="Email" type="email" v-model="userForm.email" :required="true" />
 
-      <FwbInput
-        label="Password"
-        id="password"
-        name="password"
-        type="password"
-        autocomplete="current-password"
-        v-model="userForm.password"
-        :required="true"
-      />
+      <FwbInput label="Password" id="password" name="password" type="password" autocomplete="current-password"
+        v-model="userForm.password" :required="true" />
 
       <FwbInput label="Name" v-model="userForm.name" :required="true" />
 
       <div class="relative">
-        <FwbInput
-          label="Select School"
-          v-model="searchQuery"
-          :required="true"
-          @input="isDropdownOpen = true"
-        />
-        <div
-          v-if="isDropdownOpen && searchQuery"
-          class="absolute z-10 mt-2 w-full rounded border border-gray-300 bg-white shadow"
-        >
-          <div
-            v-for="school in filteredSchools"
-            :key="school.id"
-            class="cursor-pointer p-2 hover:bg-gray-100"
-            @click="selectSchool(school)"
-          >
-            <strong>{{ school.name }}</strong
-            ><br />
+        <FwbInput label="Select School" v-model="searchQuery" :required="true" @input="isDropdownOpen = true" />
+        <div v-if="isDropdownOpen && searchQuery"
+          class="absolute z-10 mt-2 w-full rounded border border-gray-300 bg-white shadow">
+          <div v-for="school in filteredSchools" :key="school.id" class="cursor-pointer p-2 hover:bg-gray-100"
+            @click="selectSchool(school)">
+            <strong>{{ school.name }}</strong><br />
             {{ school.address }}
           </div>
         </div>
@@ -123,11 +104,8 @@ onBeforeMount(async () => {
 
       <FwbAlert v-if="hasSucceeded" data-testid="successMessage" type="success">
         You have successfully signed up! You can now log in.
-        <RouterLink
-          :to="{ name: 'Login' }"
-          class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-          >Go to the login page</RouterLink
-        >
+        <RouterLink :to="{ name: 'Login' }" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Go to
+          the login page</RouterLink>
       </FwbAlert>
       <AlertError :message="errorMessage">
         {{ errorMessage }}
@@ -142,10 +120,7 @@ onBeforeMount(async () => {
       <FwbAlert class="bg-transparent text-center">
         Already a member?
         {{ ' ' }}
-        <RouterLink
-          :to="{ name: 'Login' }"
-          class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-          >Log in
+        <RouterLink :to="{ name: 'Login' }" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Log in
         </RouterLink>
       </FwbAlert>
     </template>

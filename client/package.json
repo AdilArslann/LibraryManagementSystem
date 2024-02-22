@@ -21,6 +21,7 @@
     "@heroicons/vue": "^2.0.18",
     "@sentry/node": "^7.102.1",
     "@sentry/profiling-node": "^7.102.1",
+    "@sentry/vue": "^7.102.1",
     "@trpc/client": "^10.41.0",
     "flowbite": "^2.0.0",
     "flowbite-vue": "^0.1.0",
