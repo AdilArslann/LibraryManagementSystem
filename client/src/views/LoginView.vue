@@ -18,6 +18,10 @@ const [submitLogin, errorMessage] = useErrorMessage(async () => {
 
   router.push({ name: 'Dashboard' })
 })
+
+const testError = () => {
+  throw new Error('Test error for Sentry after deployment')
+}
 </script>
 
 <template>
@@ -25,15 +29,8 @@ const [submitLogin, errorMessage] = useErrorMessage(async () => {
     <template #default>
       <FwbInput label="Email" type="email" v-model="userForm.email" :required="true" />
 
-      <FwbInput
-        label="Password"
-        id="password"
-        name="password"
-        type="password"
-        autocomplete="current-password"
-        v-model="userForm.password"
-        :required="true"
-      />
+      <FwbInput label="Password" id="password" name="password" type="password" autocomplete="current-password"
+        v-model="userForm.password" :required="true" />
 
       <FwbAlert v-if="errorMessage" data-testid="errorMessage" type="danger">
         {{ errorMessage }}
@@ -48,12 +45,11 @@ const [submitLogin, errorMessage] = useErrorMessage(async () => {
       <FwbAlert class="bg-transparent text-center">
         Not a member?
         {{ ' ' }}
-        <RouterLink
-          :to="{ name: 'Signup' }"
-          class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-          >Sign up
+        <RouterLink :to="{ name: 'Signup' }" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign up
         </RouterLink>
       </FwbAlert>
     </template>
   </PageForm>
+
+  <FwbButton @click="testError" data-testid="testError">Test error</FwbButton>
 </template>
