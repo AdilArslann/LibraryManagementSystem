@@ -49,14 +49,14 @@ const reservation2 = await db.getRepository(Reservation).save({
   expireDate: new Date(),
 })
 
-const loan = await loanRepository.save({
+await loanRepository.save({
   dueDate: new Date(new Date().setMonth(new Date().getMonth() + 1)),
   userId: reservation.userId,
   bookId: reservation.bookId,
   reservationId: reservation.id,
 })
 
-const loan2 = await loanRepository.save({
+await loanRepository.save({
   dueDate: new Date(new Date().setMonth(new Date().getMonth() + 1)),
   userId: reservation2.userId,
   bookId: reservation2.bookId,

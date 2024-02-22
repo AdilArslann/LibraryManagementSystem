@@ -50,11 +50,17 @@ const formatDate = (date: Date | string) => {
     </div>
     <div class="actions">
       <div class="whenActive" v-if="checkIfStatusActive(reservation.status)">
-        <FwbButton v-if="checkIfSamePerson(reservation.user.id)"
-          @click="reservationsStore.cancelReservation(reservation.id)" data-testid="cancelReservation">Cancel Reservation
+        <FwbButton
+          v-if="checkIfSamePerson(reservation.user.id)"
+          @click="reservationsStore.cancelReservation(reservation.id)"
+          data-testid="cancelReservation"
+          >Cancel Reservation
         </FwbButton>
-        <FwbButton v-if="userRole === 'librarian'" @click="reservationsStore.completeReservation(reservation.id)"
-          data-testid="completeReservation">Complete Reservation
+        <FwbButton
+          v-if="userRole === 'librarian'"
+          @click="reservationsStore.completeReservation(reservation.id)"
+          data-testid="completeReservation"
+          >Complete Reservation
         </FwbButton>
       </div>
       <div class="whenExpired" v-if="checkIfStatusExpired(reservation.status)">
@@ -102,7 +108,7 @@ const formatDate = (date: Date | string) => {
   flex-direction: row;
 }
 
-.actions>*>* {
+.actions > * > * {
   margin: 0.3rem;
 }
 
@@ -148,8 +154,6 @@ const formatDate = (date: Date | string) => {
   border-radius: 50%;
   margin-right: 10%;
 }
-
-
 
 .Active::before {
   background-color: green;

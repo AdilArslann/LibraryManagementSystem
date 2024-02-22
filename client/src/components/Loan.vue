@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { FwbButton } from 'flowbite-vue'
-import { useLoanStore } from '@/stores/loanStore';
+import { useLoanStore } from '@/stores/loanStore'
 
 const loansStore = useLoanStore()
 
@@ -40,7 +40,8 @@ const formatDate = (date: Date | string) => {
       </p>
     </div>
     <div class="actions">
-      <FwbButton v-if="!checkIfStatusReturned(loan.status)" @click="loansStore.returnLoan(loan.id)">Mark as Returned
+      <FwbButton v-if="!checkIfStatusReturned(loan.status)" @click="loansStore.returnLoan(loan.id)"
+        >Mark as Returned
       </FwbButton>
     </div>
   </div>
