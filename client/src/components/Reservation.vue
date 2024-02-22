@@ -138,7 +138,7 @@ const formatDate = (date: Date | string) => {
   font-weight: bold;
   align-items: center;
   justify-content: center;
-  width: 40%;
+  min-width: 8rem;
 }
 
 .status::before {
@@ -161,6 +161,10 @@ const formatDate = (date: Date | string) => {
 
 .Canceled::before {
   background-color: grey;
+}
+
+.Completed::before {
+  background-color: blue;
 }
 
 .status.Completed {
