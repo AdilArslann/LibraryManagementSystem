@@ -60,7 +60,7 @@ jobs:
           DB_NAME: testdb
           CI: true
           TOKEN_KEY: supersecretkey
-          GOOGLE_BOOKS_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          GOOGLE_BOOKS_API_KEY: ${{ secrets.GOOGLE_BOOKS_API_KEY }}
 
       - name: Test client (unit)
         run: npm run test:unit -w=client
@@ -80,7 +80,7 @@ jobs:
           DB_NAME: testdb
           TOKEN_KEY: supersecretkey
           CI: true
-          GOOGLE_BOOKS_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          GOOGLE_BOOKS_API_KEY: ${{ secrets.GOOGLE_BOOKS_API_KEY }}
           # port to start the server on
           PORT: 3000
 
@@ -103,7 +103,7 @@ jobs:
           DB_NAME: testdb
           CI: true
           TOKEN_KEY: supersecretkey
-          GOOGLE_BOOKS_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          GOOGLE_BOOKS_API_KEY: ${{ secrets.GOOGLE_BOOKS_API_KEY }}
           # port to start the server on
           PORT: 3000
       # Build the front end for E2E tests. We are building it
@@ -248,7 +248,7 @@ jobs:
                 "DB_USER": "${{ secrets.PROD_DB_USER }}",
                 "DB_PASSWORD": "${{ secrets.PROD_DB_PASSWORD }}",
                 "TOKEN_KEY": "${{ secrets.TOKEN_KEY }}",
-                "GOOGLE_BOOKS_API_KEY": "${{ secrets.GOOGLE_API_KEY }}",
+                "GOOGLE_BOOKS_API_KEY": "${{ secrets.GOOGLE_BOOKS_API_KEY }}",
                 "SENTRY_DSN": "${{ secrets.SENTRY_DSN }}"
               }
             }

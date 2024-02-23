@@ -19,8 +19,8 @@ services:
       context: .
       dockerfile: ./server/Dockerfile
     # If we would have some secrets that we want to pass:
-    # env_file:
-    #   - ./server/.env
+    env_file:
+      - ./server/.env
     environment:
       DB_HOST: postgres
       DB_USER: turing
