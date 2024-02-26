@@ -11,8 +11,6 @@ import router from './router'
 
 const app = createApp(App)
 
-app.use(createPinia())
-
 if (sentryDSN) {
   console.log('Sentry DSN found, initializing Sentry...')
   Sentry.init({
@@ -33,6 +31,8 @@ if (sentryDSN) {
     replaysOnErrorSampleRate: 1.0, // If you're not already sampling the entire session, change the sample rate to 100% when sampling sessions where errors occur.
   })
 }
+
+app.use(createPinia())
 app.use(router)
 
 app.mount('#app')
