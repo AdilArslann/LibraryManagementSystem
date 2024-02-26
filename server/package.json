@@ -52,6 +52,7 @@
   },
   "dependencies": {
     "@sentry/node": "^7.102.1",
+    "@sentry/profiling-node": "^7.102.1",
     "@trpc/server": "^10.41.0",
     "axios": "^1.6.3",
     "bcrypt": "^5.1.1",
