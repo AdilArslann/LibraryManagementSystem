@@ -196,6 +196,7 @@ jobs:
           -t $CLIENT_IMAGE_TAG
           --build-arg VITE_API_ORIGIN=$API_ORIGIN
           --build-arg VITE_API_PATH=$API_PATH
+          --build-arg VITE_SENTRY_DSN=${{ secrets.VITE_SENTRY_DSN }}
           -f ./client/Dockerfile .
 
       - name: Push server image
@@ -231,7 +232,6 @@ jobs:
               },
               "environment": {
                 "API_PROXY_PASS": "http://localhost:3000",
-                "VITE_SENTRY_DSN": "${{ secrets.VITE_SENTRY_DSN }}"
               }
             },
             "server": {
