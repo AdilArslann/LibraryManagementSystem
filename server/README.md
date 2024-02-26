@@ -77,3 +77,8 @@ http://localhost:3000/panel
 Example picture:
 ![image](https://github.com/TuringCollegeSubmissions/aarsla-BE.3.5/assets/82507565/d3b0233e-320a-40f1-b0f6-6fb525454047)
 
+## Test coverage report
+On average it is around 90 percent
+
+![image](https://github.com/AdilArslann/LibraryManagementSystem/assets/82507565/f0593e1b-7548-47c1-b4bb-78de13306fed)
+
