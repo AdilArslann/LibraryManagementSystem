@@ -233,7 +233,7 @@ jobs:
               },
               "environment": {
                 "API_PROXY_PASS": "http://localhost:3000",
-                "VITE_SENTRY_DSN": ${{ secrets.VITE_SENTRY_DSN }}
+                "VITE_SENTRY_DSN": "${{ secrets.VITE_SENTRY_DSN }}"
               }
             },
             "server": {
