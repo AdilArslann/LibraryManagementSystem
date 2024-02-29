@@ -15,7 +15,10 @@ import config from './config'
 export default function createApp(db: Database) {
   const app = express()
 
-  if (config.sentryDSN) {
+  if (config.sentryDSN && !config.isCi) {
+    // Sentry can sometimes cause issues in CI when running the tests.
+    // So it also checks if it's running in CI environment if so it won't initialize Sentry
+    // hence avoiding any false fails.
     Sentry.init({
       dsn: config.sentryDSN,
       integrations: [
