@@ -1,4 +1,5 @@
 import type { DataSourceOptions } from 'typeorm'
+
 import createApp from './app'
 import { createDatabase } from './database'
 import config from './config'

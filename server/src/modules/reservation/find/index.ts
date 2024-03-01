@@ -15,7 +15,7 @@ export default authenticatedProcedure.query(
         },
         relations: ['book', 'user'],
         order: {
-          status: 'ASC',
+          status: 'DESC',
           reservationDate: 'DESC',
         },
       })
@@ -26,7 +26,7 @@ export default authenticatedProcedure.query(
         },
         relations: ['book', 'user'],
         order: {
-          status: 'ASC',
+          status: 'DESC',
           reservationDate: 'DESC',
         },
       })

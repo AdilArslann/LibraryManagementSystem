@@ -5,12 +5,14 @@ import {
 } from '@trpc/server/adapters/express'
 import cors from 'cors'
 import { renderTrpcPanel } from 'trpc-panel'
+import cron from 'node-cron'
 import * as Sentry from '@sentry/node'
 import { ProfilingIntegration } from '@sentry/profiling-node'
 import type { Database } from './database'
 import { appRouter } from './modules'
 import type { Context } from './trpc'
 import config from './config'
+import startScheduledTasks from './scheduledTasks'
 
 export default function createApp(db: Database) {
   const app = express()
@@ -73,6 +75,13 @@ export default function createApp(db: Database) {
       })
     )
   )
+
+  cron.schedule('* * * * *', () => {
+    // For updating the status of reservation and loans every day
+    // at 00:00
+    console.log('running a task every minute')
+    startScheduledTasks(db)
+  })
 
   return app
 }
