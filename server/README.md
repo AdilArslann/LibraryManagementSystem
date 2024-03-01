@@ -80,5 +80,7 @@ Example picture:
 ## Test coverage report
 On average it is around 90 percent
 
-![image](https://github.com/AdilArslann/LibraryManagementSystem/assets/82507565/f0593e1b-7548-47c1-b4bb-78de13306fed)
+![image](https://github.com/AdilArslann/LibraryManagementSystem/assets/82507565/bad18bf6-5fbf-4803-871c-af429ddc8ac5)
+
+
 
