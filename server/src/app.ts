@@ -17,7 +17,7 @@ import startScheduledTasks from './scheduledTasks'
 export default function createApp(db: Database) {
   const app = express()
 
-  if (config.sentryDSN && !config.isCi) {
+  if (config.sentryDSN && config.env === 'production') {
     // Sentry can sometimes cause issues in CI when running the tests.
     // So it also checks if it's running in CI environment if so it won't initialize Sentry
     // hence avoiding any false fails.
@@ -76,10 +76,11 @@ export default function createApp(db: Database) {
     )
   )
 
-  cron.schedule('* * * * *', () => {
+  cron.schedule('0 0 * * *', () => {
     // For updating the status of reservation and loans every day
     // at 00:00
-    console.log('running a task every minute')
+    // https://crontab.guru/#0_0_*_*_*
+    // (Thanks to Adomas for sharing this website in the standup)
     startScheduledTasks(db)
   })
 
