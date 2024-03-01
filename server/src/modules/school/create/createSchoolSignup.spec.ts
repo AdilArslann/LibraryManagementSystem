@@ -69,3 +69,11 @@ it('should require a valid email', async () => {
 it('shouldnt allow non-admin users to create a school', async () => {
   await expect(create2(fakeSchool())).rejects.toThrow(/access denied/i)
 })
+
+it('should throw an error if the email is already in use', async () => {
+  const tempSchool = fakeSchool()
+  await schoolRepository.save(tempSchool)
+  await expect(create(tempSchool)).rejects.toThrow(
+    /School with this email already exists/i
+  )
+})

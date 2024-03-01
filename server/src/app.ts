@@ -19,7 +19,7 @@ export default function createApp(db: Database) {
 
   if (config.sentryDSN && config.env === 'production') {
     // Sentry can sometimes cause issues in CI when running the tests.
-    // So it also checks if it's running in CI environment if so it won't initialize Sentry
+    // Now it only initializes when the environment is production,
     // hence avoiding any false fails.
     Sentry.init({
       dsn: config.sentryDSN,

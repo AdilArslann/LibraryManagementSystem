@@ -71,3 +71,19 @@ it('should not allow anyone except admins to create librarians', async () => {
     })
   ).rejects.toThrowError('Access denied')
 })
+
+it('should not allow creating a librarian with an existing email', async () => {
+  const tempUser = fakeUser()
+
+  await createLibrarian({
+    ...tempUser,
+    schoolId: tSchool.id,
+  })
+
+  await expect(
+    createLibrarian({
+      ...tempUser,
+      schoolId: tSchool.id,
+    })
+  ).rejects.toThrowError('User with this email already exists')
+})
