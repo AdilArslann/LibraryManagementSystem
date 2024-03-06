@@ -13,18 +13,13 @@ onBeforeMount(async () => {
 
 <template>
   <div class="ReservationView">
-    <div
-      v-if="reservationsStore.reservations.length"
-      class="reservationList"
-      data-testid="reservationList"
-    >
-      <Reservation
-        v-for="reservation in reservationsStore.reservations"
-        :key="reservation.id"
-        :reservationId="reservation.id"
-      />
+    <div v-if="reservationsStore.reservations.length" class="reservationList" data-testid="reservationList">
+      <Reservation v-for="reservation in reservationsStore.reservations" :key="reservation.id"
+        :reservationId="reservation.id" />
     </div>
+
     <FwbAlert v-else data-testid="reservationListEmpty">There are no reservations</FwbAlert>
+
   </div>
 </template>
 
