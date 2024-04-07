@@ -13,5 +13,5 @@ export function feeCalculator(returnDate: Date, checkoutdates: Date[]): number {
         Math.max(0, differenceDays - 5) * 0.5
       return fee
     })
-    .reduce((accumulated, current) => (accumulated += current))
+    .reduce((accumulated, current) => accumulated + current, 0)
 }
